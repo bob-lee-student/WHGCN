@@ -1,0 +1,33 @@
+#------------------------------------------------------------------#
+# must check the direction of data_root and result_root before run #
+#------------------------------------------------------------------#
+subjectnum: 348
+featurenum: 90
+positiveclass: 223
+negativeclass: 125
+#请确保数据前半部分全是正类，后半部分全是反类，数据中不需要带标签。
+iteration: 20
+#configure feature path
+# **** please must modify the data_root before first running ****
+data_root: &d_r * #Here's the file directory
+dataset: !join [*d_r, BL.mat] #Here's the file name
+
+#Hypergraph
+#graph_type: &g_t hypergraph
+K_neigs: [15]
+m_prob: 1.0
+is_probH: False   #超边和节点的关联矩阵中，元素是单纯的0和1，还是根据距离得到的浮点数
+#is_probH为False时，关联矩阵为0和1
+split_diff_scale: False  #是否融合不同K值的超边**********************
+on_dataset: &o_d Longitudinal data
+variable_weight: False          #超边的权重是否可变
+
+#Train
+max_epoch: 1000
+n_hid: 100
+lr: 0.1
+#使用指数衰减
+gamma: 0.99
+drop_out: 0.5
+print_freq: 100
+weight_decay: 0.01
